@@ -2,9 +2,9 @@
 import { ref, watch } from 'vue'
 
 let searchTerm    = ref('')
-let results       = ref()
+let results       = ref([])
 let loading       = ref(false)
-let debounceTimer = ref()
+let debounceTimer = ref(null)
 
 const findProducts = async term => {
 	loading.value = true
@@ -39,7 +39,7 @@ watch(searchTerm, newTerm => findProducts(newTerm))
       	<li v-for="product in results.products" :key="product.id">
 			<article class="px-4 py-2 border-b-2 border-b-green">
 				<p class="text-sm">{{ product.brand }} - {{ product.category }}</p>
-				<p class="text-lg">{{ product.title }}</p>
+				<p class="text-lg">{{ product.title }} <small>({{ product.price }}€)</small></p>
 			</article>
 		</li>
     </ul>
